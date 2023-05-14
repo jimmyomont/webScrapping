@@ -1,5 +1,6 @@
 
-const puppeteer = require("puppeteer");
+import { locales } from "moment";
+import puppeteer = require("puppeteer");
 
 
 export default class Robot {
@@ -8,108 +9,79 @@ export default class Robot {
     }
 
     public async runScenarioRobot() {
-        const browser = await puppeteer.launch({headless: false});
+        const browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
-        await page.goto(`https://www.tel.fr/res/la-reunion/`);
-
-        await this.delay(200);
-        //await page.waitForXPath('//*[@id="axeptio_overlay"]/div/div/div[1]');
-
-        // evaluate XPath expression of the target selector (it return array of ElementHandle)
-        //await page.waitForXPath('//*[@id="axeptio_overlay"]/div/div/div[1]');
-
-        // evaluate XPath expression of the target selector (it return array of ElementHandle)
-
-        await page.waitForXPath("/html/body/div[3]/section/div[2]/div/button[2]");
-        let el = await page.$x("/html/body/div[3]/section/div[2]/div/button[2]");
-        await el[0].click();
-
-
-        for (let ville = 1; ville < 15; ville++) {
-            for (let lettre = 10; lettre < 15; lettre++) {
-                try {
-                    await this.delay(200);
-                    await page.waitForXPath("/html/body/div[2]/div/div[3]/div/ul/li[" + ville + "]/a");
-                    let el2 = await page.$x("/html/body/div[2]/div/div[3]/div/ul/li[" + lettre + "]/a");
-                    await el2[0].click();
-
-                    await this.delay(200);
-                    await page.waitForXPath('//*[@id="content1"]/div/ul/li[1]/a/strong');
-                    let el3 = await page.$x('//*[@id="content1"]/div/ul/li[1]/a/strong');
-                    await el3[0].click();
-                    await this.delay(200);
-
-
-                    for (let h = 2; h < 11; h++) {
-                        await this.delay(2000);
-
-
-                        for (let i = 1; i < 29; i++) {
-                            try {
-                                if (!(i == 2 || i == 7)) {
-                                    await this.delay(200);
-                                    await page.waitForXPath('//*[@id="content1"]/ul/li[' + i + ']/div[2]/div[3]/button');
-                                    let el4 = await page.$x('//*[@id="content1"]/ul/li[' + i + ']/div[2]/div[3]/button');
-                                    await el4[0].click();
-//*[@id="content1"]/ul/li[3]/div[2]/div[3]/button
-                                    await this.delay(200);
-                                    await page.waitForXPath(
-                                        '//*[@id="content1"]/ul/li[' + i + ']/div[2]/div[3]/div/span'
-                                    );
-                                    //assuming it's the first element
-                                    let [element] = await page.$x(
-                                        '//*[@id="content1"]/ul/li[' + i + ']/div[2]/div[3]/div/span'
-                                    );
-
-
-                                    let text3 = await page.evaluate((element: any) => element.textContent, element);
-                                    console.log(text3.replace(/[;];/g, "") + ";");
-                                    let y = i;
-                                    await this.delay(200);
-                                    await page.waitForXPath(
-                                        '/html/body/div[2]/div/div[3]/ul/li[' + y + ']/div[2]/div[2]/address/h3'
-                                    );
-                                    //assuming it's the first element
-                                    let [element3] = await page.$x(
-                                        '/html/body/div[2]/div/div[3]/ul/li[' + y + ']/div[2]/div[2]/address/h3'
-                                    );
-
-
-                                    let text5 = await page.evaluate((element3: any) => element3.textContent, element3);
-                                    console.log(text5.replace(/[;];/g, "") + ";");
-
-                                    await this.delay(200);
-                                    await page.waitForXPath(
-                                        '//*[@id="content1"]/ul/li[' + y + ']/div[2]/div[1]/h2/a'
-                                    );
-                                    let [element2] = await page.$x(
-                                        '//*[@id="content1"]/ul/li[' + y + ']/div[2]/div[1]/h2/a'
-                                    );
-
-
-                                    let text4 = await page.evaluate((element2: any) => element2.textContent, element2);
-                                    console.log(text4.replace(/[;];/g, "") + ";");
-
-                                }
-                            } catch (error) {
-
-                                console.log(error);
-                            }
-                        }
-                        await this.delay(200);
-                        await page.waitForXPath('/html/body/div[2]/div/div[5]/ul/li[' + h + ']/a');
-                        let el4 = await page.$x('/html/body/div[2]/div/div[5]/ul/li[' + h + ']/a');
-                        await el4[0].click();
-                    }
-
-
-                } catch (error) {
-                    console.log(error);
-                }
-            }
+        await page.goto(`https://www.welcometothejungle.com/fr/jobs?refinementList%5Boffices.country_code%5D%5B%5D=FR&refinementList%5Bremote%5D%5B%5D=fulltime&refinementList%5Bcontract_type%5D%5B%5D=APPRENTICESHIP&refinementList%5Bcontract_type%5D%5B%5D=FULL_TIME&refinementList%5Bcontract_type%5D%5B%5D=INTERNSHIP&refinementList%5Bcontract_type%5D%5B%5D=TEMPORARY&searchTitle=false&page=1&aroundQuery=Paris%2C%20France&aroundLatLng=48.85718%2C2.34141&aroundPrecision=20000&aroundRadius=20000`);
+        await this.delay(7000);
+        try {
+            await page.waitForXPath('/html/body/div[2]/div/div/div[1]/div[2]/button[3]');
+            let rechecher = await page.$x('/html/body/div[2]/div/div/div[1]/div[2]/button[3]');
+            await rechecher[0].click();
+        }
+        
+        catch (error) {
+            console.log(error);
+            
         }
 
+            await this.delay(1000);
+            for (let index = 1; index < 33; index++) {
+                await this.delay(500);
+                try {
+                    let [element] = await page.$x('/html/body/div[1]/div[1]/div/div/div/div[2]/div/ol/div['+index+']/li/div/div/div[2]/a/h4/div');
+                let text = await page.evaluate(element => element.textContent, element);
+                console.log(text)}
+                catch(err2){
+                    console.log(err2);
+                    
+                    
+                }
+            }
+                // const element = array[index];
+
+
+
+        
+        // try {
+            
+        //     await this.delay(500);
+        //     let quoi: any = await page.waitForXPath('/html/body/div[1]/div[1]/div/div/div/div[1]/div/div[2]/div[1]/div[1]/div/div[1]/div[1]/input');
+        //     await quoi.type("Developpeur web");
+        //     await this.delay(300);
+        //     await page.keyboard.press('Enter');
+            
+        //     await this.delay(1000);
+            
+        //     let ou: any = await page.waitForXPath('/html/body/div[1]/div[1]/div/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div/div/div/div[1]/input');
+
+        //     await ou.type(", Paris");
+        //     await this.delay(2000);
+
+
+        //     await page.waitForXPath('/html/body/div[1]/div[1]/div/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div[1]/div/div/div[2]/div/div[3]');
+        //     let clicks = await page.$x('/html/body/div[1]/div[1]/div/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div[1]/div/div/div[2]/div/div[3]');
+        //     await clicks[0].click();
+            
+        //     await this.delay(1000);
+        //     await page.keyboard.press('Enter');
+        //     await this.delay(3000)
+        //     await page.keyboard.down('PageDown')
+
+        // } catch (error) {
+        //     console.log(error);
+
+        // }
+
+        // try {
+        //     await page.waitForXPath('/html/body/div[1]/div[1]/div/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div/div/div/div[1]/input');
+        //     let rechecher = await page.$x('/html/body/div[1]/div[1]/div/div/div/div[1]/div/div[2]/div[1]/div[2]/div/div/div/div/div[1]/input');
+        //     await rechecher[0].click();
+        // } catch (error) {
+        //     console.log(error);
+        // }
+
     }
+
 
 
     delay(time: number) {
